@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import { Estacao } from "../types";
-import { connect, disconnect } from "../models/connection";
+import { connect, disconnect } from "../database/connection";
 import controller from "./EstacaoController";
 
 const pasta = "./dados";
