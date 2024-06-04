@@ -6,7 +6,8 @@ const EstadoSchema = new Schema({
         trim: true,
         unique: false,
         required: true,
-        maxlength: [2, "O nome pode ter apenas até 2 caracteres"]
+        maxlength: [2, "O nome pode ter apenas até 2 caracteres"],
+        set: (value: String) => value.toUpperCase()
     },
     est_nome:{
         type: String,
@@ -22,12 +23,17 @@ const EstadoSchema = new Schema({
     },
     est_created_at: {
         type: Date,
-        required: true
+        default: Date.now
     },
     est_updated_at: {
         type: Date,
-        required: true
+        default: Date.now
     }
+})
+
+EstadoSchema.pre('save', function(next) {
+    this.est_updated_at = new Date();
+    next();
 });
 
 const Estado = mongoose.model('Estado', EstadoSchema);

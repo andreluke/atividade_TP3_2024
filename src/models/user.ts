@@ -63,13 +63,18 @@ const UserSchema = new Schema({
     },
     user_created_at: {
         type: Date,
-        required: true
+        default: Date.now
     },
     user_updated_at: {
         type: Date,
-        required: true
+        default: Date.now
     }
 })
+
+UserSchema.pre('save', function(next) {
+    this.user_updated_at = new Date();
+    next();
+});
 
 const User = mongoose.model('User', UserSchema);
 
